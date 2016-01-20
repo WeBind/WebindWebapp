@@ -1,0 +1,42 @@
+<!-- add.html -->
+
+    <div class="jumbotron text-center">
+        <h3>Add projects</h3>
+
+        <p>{{ message }}</p>
+
+        <table class="mdl-data-table  mdl-js-data-table">
+        	<thead>
+        		<tr>
+        			<th></th>
+        			<th class="mdl-data-table__cell--non-numeric">Name</th>
+        			<th class="mdl-data-table__cell--non-numeric">Owner</th>
+        			<th class="mdl-data-table__cell--non-numeric">Language</th>
+        			<th class="mdl-data-table__cell--non-numeric">Clone url</th>
+        		</tr>
+        	</thead>
+        	<tr ng-repeat = "project in projectListGitHub">
+        		<td>
+        		<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-2">
+  					<!--<input type="checkbox" name="selectedProject[]" value="{{ project }}" ng-checked="selection.indexOf(project) > -1" ng-click="toggleSelection(project)" class="mdl-checkbox__input" >-->
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"  ng-click="onAddClick($index)" style="margin-top:-7px;" ng-hide="{{project.added}}">
+			Deploy
+			</button>
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent"  ng-click="onDeleteClick($index)" style="margin-top:-7px;background-color : #FF4081;" ng-show="{{project.added}}">
+			Undeploy
+			</button>
+				</label>
+        		</td>
+        		<td class="mdl-data-table__cell--non-numeric">  {{ project.name }} </td>
+        		<td class="mdl-data-table__cell--non-numeric">  {{ project.owner.login }} </td>
+        		<td class="mdl-data-table__cell--non-numeric">  {{ project.language }} </td>
+        		<td class="mdl-data-table__cell--non-numeric">  {{ project.clone_url }} </td>
+        	</tr>
+        </table>
+
+        <!--<div class="mdl-cell">
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"  ng-click="onAddClick()">
+			<b>Add</b>
+			</button>
+		</div>-->
+    </div>

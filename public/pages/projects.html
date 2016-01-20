@@ -1,0 +1,103 @@
+<!-- projects.html -->
+
+<style>
+	.mdl-layout__content{
+ 	 margin-left: 500;
+	}
+</style>
+
+    <div class="jumbotron text-center">
+        <h3>Monitor your application</h3>
+
+        <p>{{ message }}</p>Url : <a target="_blank" href="http://{{userInfo.username}}.whalee.io/{{project.name}}">http://{{userInfo.username}}.whalee.io/{{project.name}}</a>
+
+        <div class="mdl-grid">
+        	<div class="mdl-cell mdl-cell--2-col">
+        		<table class="mdl-data-table mdl-js-data-table">
+        	<thead>
+        		<tr>
+        			<th class="mdl-data-table__cell--non-numeric">Containers list</th>
+        		</tr>
+        	</thead>
+        	<tr ng-repeat = "container in containers" ng-click="onContainerClick(container.id,$index)">
+        		<td class="mdl-data-table__cell--non-numeric">{{container.name}}</td>
+        	</tr>
+        </table>
+        	</div>
+			<div class="mdl-cell mdl-cell--8-col mdl-card mdl-shadow-2dp">
+  			<div class="mdl-card__title">
+  				Log
+  			</div>
+  			<div class="mdl-layout-spacer"></div>  	
+			  <textarea type="text" rows="10" id="address"></textarea>
+			</div>
+        	<div class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--2dp">
+
+  			<div class="mdl-card__title">
+  				CPU
+  			</div>
+  			<div class="mdl-layout-spacer"></div>
+
+  			<canvas id="line" class="chart chart-line" chart-data="dataCPU"
+  				chart-labels="timeScaleCPU" chart-legend="false" chart-series="seriesCPU"
+  				chart-click="onClick" >
+			</canvas>
+
+  			<div class="mdl-layout-spacer"></div>
+  			
+  			</div>
+
+  			<div class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--2dp">
+  			<div class="mdl-card__title">
+  				Memory
+  			</div>
+  			<div class="mdl-layout-spacer"></div>
+  		
+  			<canvas id="line" class="chart chart-line" chart-data="dataMem"
+  				chart-labels="timeScaleMem" chart-legend="false" chart-series="seriesMem"
+  				chart-click="onClick" >
+			</canvas>
+			
+  			<div class="mdl-layout-spacer"></div>  				
+  			</div>
+
+  			<div class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--2dp">
+  			<div class="mdl-card__title">
+  				Disk
+  			</div>
+  			<div class="mdl-layout-spacer"></div>
+  		
+  			<canvas id="line" class="chart chart-line" chart-data="dataDisk"
+  				chart-labels="timeScaleDisk" chart-legend="false" chart-series="seriesDisk"
+  				chart-click="onClick" >
+			</canvas>
+			
+  			<div class="mdl-layout-spacer"></div>  	
+        	</div>
+		</div>
+
+		<div class="mdl-grid">
+			<div class="mdl-cell mdl-cell--3-col">
+				<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
+  					<input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" ng-change="autoDeploy()" ng-model="hooked">
+  					<span class="mdl-checkbox__label">Enable Auto-Deploy</span>
+				</label>
+			</div>
+			<div class="mdl-cell mdl-cell--2-col">
+				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" ng-click="onDeployClick()">
+				<!--<b ng-bind="deployButtonText()"></b>-->
+                                <b>FORCE DEPLOY</b>
+				</button>
+			</div>
+			<div class="mdl-cell mdl-cell--2-col">
+
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" style="background-color : #FF4081;" ng-click="onRemoveClick()">
+  				Undeploy
+			</button>
+			</div>
+
+		</div>
+
+
+
+</div>

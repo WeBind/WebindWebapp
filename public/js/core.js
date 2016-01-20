@@ -1,13 +1,22 @@
 // public/core.js
 
 // include ngRoute for all our routing needs
-var webind = angular.module('webind', ['chart.js','ngRoute']);
+var webind = angular.module('webind', ['ngRoute', 'ngAnimate']);
 
     // configure our routes
-whalee.config(function($routeProvider) {
-
+webind.config(function($routeProvider) {
+	$routeProvider
+	            .when('/', {
+                templateUrl : 'pages/instances.html',
+            })
+	            .when('/prod', {
+                templateUrl : 'pages/prod.html',
+            })
+	            .when('/cons', {
+                templateUrl : 'pages/cons.html',
+            })
 });
 
-whalee.controller('mainController', function($scope,$http,$rootScope) {
+webind.controller('mainController', function($scope,$http,$rootScope) {
 
 });

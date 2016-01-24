@@ -25,14 +25,14 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td class="mdl-data-table__cell--non-numeric">Provider 1</td>
+            <tr ng-repeat= "p in prod">
+              <td class="mdl-data-table__cell--non-numeric">{{p.name}}</td>
               <td>
                 <!-- Numeric Textfield with Floating Label -->
                 <form action="#">
                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:70%">
-                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample4">
-                    <label class="mdl-textfield__label" for="sample4">Number...</label>
+                    <input class="mdl-textfield__input" ng-model="p.size" type="text" pattern="[1-9][0-9]*" id="sample1" value={{p.size}}>
+                    <label class="mdl-textfield__label" for="sample1">Number...</label>
                     <span class="mdl-textfield__error">Input is not a number!</span>
                   </div>
                 </form>
@@ -41,83 +41,13 @@
                 <!-- Numeric Textfield with Floating Label -->
                 <form action="#">
                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:70%">
-                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample4">
-                    <label class="mdl-textfield__label" for="sample4">Number...</label>
-                    <span class="mdl-textfield__error">Input is not a number!</span>
-                  </div>
-                </form>
-              </td>
-            </tr>
-            <tr>
-              <td class="mdl-data-table__cell--non-numeric">Provider 2</td>
-              <td>
-                <!-- Numeric Textfield with Floating Label -->
-                <form action="#">
-                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:70%">
-                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample4">
-                    <label class="mdl-textfield__label" for="sample4">Number...</label>
-                    <span class="mdl-textfield__error">Input is not a number!</span>
-                  </div>
-                </form>
-              </td>
-              <td>
-                <!-- Numeric Textfield with Floating Label -->
-                <form action="#">
-                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:70%">
-                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample4">
-                    <label class="mdl-textfield__label" for="sample4">Number...</label>
+                    <input class="mdl-textfield__input" ng-model="p.delay" type="text" pattern="[1-9][0-9]*" id="sample2" value={{p.delay}}>
+                    <label class="mdl-textfield__label" for="sample2">Number...</label>
                     <span class="mdl-textfield__error">Input is not a number!</span>
                   </div>
                 </form>
               </td>
             </tr>
-            <tr>
-              <td class="mdl-data-table__cell--non-numeric">Provider 3</td>
-              <td>
-                <!-- Numeric Textfield with Floating Label -->
-                <form action="#">
-                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:70%">
-                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample4">
-                    <label class="mdl-textfield__label" for="sample4">Number...</label>
-                    <span class="mdl-textfield__error">Input is not a number!</span>
-                  </div>
-                </form>
-              </td>
-              <td>
-                <!-- Numeric Textfield with Floating Label -->
-                <form action="#">
-                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:70%">
-                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample4">
-                    <label class="mdl-textfield__label" for="sample4">Number...</label>
-                    <span class="mdl-textfield__error">Input is not a number!</span>
-                  </div>
-                </form>
-              </td>
-            </tr>
-            <tr>
-              <td class="mdl-data-table__cell--non-numeric">Provider 4</td>
-              <td>
-                <!-- Numeric Textfield with Floating Label -->
-                <form action="#">
-                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:70%">
-                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample4">
-                    <label class="mdl-textfield__label" for="sample4">Number...</label>
-                    <span class="mdl-textfield__error">Input is not a number!</span>
-                  </div>
-                </form>
-              </td>
-              <td>
-                <!-- Numeric Textfield with Floating Label -->
-                <form action="#">
-                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:70%">
-                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample4">
-                    <label class="mdl-textfield__label" for="sample4">Number...</label>
-                    <span class="mdl-textfield__error">Input is not a number!</span>
-                  </div>
-                </form>
-              </td>
-            </tr>
-        
           </tbody>
         </table>      
       </div>

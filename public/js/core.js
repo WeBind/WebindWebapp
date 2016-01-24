@@ -21,6 +21,7 @@ webind.config(function($routeProvider) {
             })
 	            .when('/prod', {
                 templateUrl : 'pages/prod.html',
+                controller : 'prodController',
             })
                 .when('/', {
                 templateUrl : 'pages/first.html',
@@ -30,6 +31,7 @@ webind.config(function($routeProvider) {
             })
 	            .when('/cons', {
                 templateUrl : 'pages/cons.html',
+                controller : 'consController',
             })
 });
 
@@ -58,7 +60,7 @@ webind.controller('mainController', function($scope, localStorageService) {
 		$scope.cons.push({'id':'cons1', 'name':'Consumer 1', 'startingTime':'0', 'size':'10','period':'1000','duration':'10000','provider':''});
 
 	if($scope.prod == [])
-		$scope.prod.push({'id':'prod1', 'name':'Producer 1', 'size':'10', 'delay':'1000','techno':'soap-java'});
+		$scope.prod.push({'id':'prod1', 'name':'Producer 1', 'size':10, 'delay':1000,'techno':'soap-java'});
 
 
 
@@ -76,7 +78,7 @@ webind.controller('mainController', function($scope, localStorageService) {
 
 	    if(nbProd > $scope.prod.length) {
 	    	for(var i = $scope.prod.length ; i < nbProd ; i++)
-	        	$scope.prod.push({'id':'prod' + (i+1), 'name':'Producer' + (i+1), 'size':'10', 'delay':'1000','techno':'soap-java'});
+	        	$scope.prod.push({'id':'prod' + (i+1), 'name':'Producer' + (i+1), 'size':10, 'delay':1000,'techno':'soap-java'});
 	    } else {
 	    	$scope.prod.splice(nbProd);
 	    }
@@ -85,3 +87,41 @@ webind.controller('mainController', function($scope, localStorageService) {
 	    console.log($scope.prod);
     }
 });
+
+webind.controller('prodController', function($scope, localStorageService) {
+	var consInStore = localStorageService.get('cons');
+	var prodInStore = localStorageService.get('prod');
+
+	$scope.cons = consInStore || [];
+	$scope.prod = prodInStore || [];
+
+	$scope.$watch('cons', function () {
+  		localStorageService.set('cons', $scope.cons);
+	}, true);
+
+	$scope.$watch('prod', function () {
+		localStorageService.set('prod', $scope.prod);
+	}, true);
+});
+
+webind.controller('consController', function($scope, localStorageService) {
+	var consInStore = localStorageService.get('cons');
+	var prodInStore = localStorageService.get('prod');
+
+	$scope.cons = consInStore || [];
+	$scope.prod = prodInStore || [];
+
+	$scope.$watch('cons', function () {
+  		localStorageService.set('cons', $scope.cons);
+	}, true);
+
+	$scope.$watch('prod', function () {
+		localStorageService.set('prod', $scope.prod);
+	}, true);
+});
+
+
+
+
+
+

@@ -40,7 +40,7 @@
     <div id="p1" class="mdl-progress mdl-js-progress" style="width: 100%;height: 10px"></div>
     <script>
       document.querySelector('#p1').addEventListener('mdl-componentupgraded', function() {
-        this.MaterialProgress.setProgress(33);
+        this.MaterialProgress.setProgress({{progressBar}});
       });
     </script>
     
@@ -53,6 +53,7 @@
     <!-- load angular -->
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular-animate.js"></script>
+    <script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
     <script src="mdl/material.min.js"></script>
     <script src="js/core.js"></script>  
     

@@ -1,11 +1,11 @@
-  <script language="javascript">
+  <!-- <script language="javascript">
     function changeCons(value){
        document.getElementById("consValue").innerHTML = value;
     }   
     function changeProd(value){
        document.getElementById("prodValue").innerHTML = value;
     }   
-  </script> 
+  </script> -->
   <script>
     componentHandler.upgradeDom();
   </script>
@@ -18,17 +18,20 @@
       <div class="mdl-card__supporting-text">
         <form class="mdl-grid" action="#">
           <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--8-col">
-            <h5>Producers : <span id="prodValue">1</span></h5>
-            <input class="mdl-slider mdl-js-slider" type="range" min="1" max="10" value="1" tabindex="0" id="prod" oninput="changeProd(this.value)" onchange="changeProd(this.value)">
+            <h5>Producers : <span id="prodValue">{{sliderProd}}</span></h5>
+            <input class="mdl-slider mdl-js-slider" ng-model="sliderProd" type="range" min="1" max="10" value={{sliderProd}} tabindex="0" id="prod">
           </div>
           <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--8-col" id="lol">
-              <h5>Consumers : <span id="consValue">1</span></h5>
-              <input class="mdl-slider mdl-js-slider" type="range" min="1" max="10" value="1" tabindex="0" id="cons" oninput="changeCons(this.value)" onchange="changeCons(this.value)">       
+              <h5>Consumers : <span id="consValue">{{sliderCons}}</span></h5>
+              <input class="mdl-slider mdl-js-slider" ng-model="sliderCons" type="range" min="1" max="10" value={{sliderCons}} tabindex="0" id="cons">       
           </div>
         </form>
       </div>
       <div class="mdl-card__actions mdl-card--border">
-        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#prod">
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#">
+          Previous
+        </a>
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" ng-click="onInstancesNext(sliderCons,sliderProd)" href="#prod" style="align:">
           Next
         </a>
       </div>

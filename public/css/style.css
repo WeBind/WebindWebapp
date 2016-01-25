@@ -1,11 +1,11 @@
 .mdl-grid {
 	align-items: center;
   justify-content: center;
-}
+} 
 .mdl-grid__content {
 	padding: 24px;
 	flex: none;
-}
+} 
 
 /*.mdl-progress {
   background-color: #FFFFFF;

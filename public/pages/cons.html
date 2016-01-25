@@ -1,0 +1,75 @@
+  <div class="mdl-grid" style="margin-top:20px">
+    <div class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--10-col">
+      <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">Consumers definition</h2>
+      </div>
+      <div class="mdl-card__supporting-text mdl-grid">
+        <table class="mdl-data-table mdl-js-data-table">
+          <thead>
+            <tr>
+             <th class="mdl-data-table__cell--non-numeric mdl-cell mdl-cell--8-col">Consumers</th>
+             <th>Starting time (ms)</th>
+             <th>Request size (bytes)</th>
+             <th>Period (ms)</th>
+             <th>Duration (ms)</th>
+             <th>Provider</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="c in cons">
+              <td class="mdl-data-table__cell--non-numeric">{{c.name}}</td>
+              <td>
+                <!-- Numeric Textfield with Floating Label -->
+                <form action="#">
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:70%">
+                    <input class="mdl-textfield__input" ng-model="c.startingTime" type="text" id="sample1" value={{c.startingTime}}>
+                  </div>
+                </form>
+              </td>
+              <td>
+                <!-- Numeric Textfield with Floating Label -->
+                <form action="#">
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:70%">
+                    <input class="mdl-textfield__input" ng-model="c.size" type="text" id="sample2" value={{c.size}}>
+                  </div>
+                </form>
+              </td>
+              <td>
+                <!-- Numeric Textfield with Floating Label -->
+                <form action="#">
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:70%">
+                    <input class="mdl-textfield__input" ng-model="c.period" type="text" id="sample3" value={{c.period}}>
+                  </div>
+                </form>
+              </td>
+              <td>
+                <!-- Numeric Textfield with Floating Label -->
+                <form action="#">
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:70%">
+                    <input class="mdl-textfield__input" ng-model="c.duration"  id="sample4" value={{c.duration}}>
+                  </div>
+                </form>
+              </td>
+              <td>
+                <select ng-model="c.provider">
+                  <option ng-repeat="p in prod" value="{{p.id}}">{{p.name}}</option>
+                </select>
+              </td>
+            </tr>
+          </tbody>
+        </table>      
+      </div>
+      <div class="mdl-card__actions mdl-card--border">
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#prod">
+          Previous
+        </a>
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" ng-click="onSaveClick()" style="align:">
+          Save scenario
+        </a>
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" ng-click="onLaunchClick()" href="#last" style="align:">
+          Launch scenario
+        </a>
+      </div>
+    </div>
+  </div>
+

@@ -5,7 +5,8 @@ var webind = angular
 	.module('webind', [
 		'ngRoute', 
 		'ngAnimate', 
-		'LocalStorageModule'
+		'LocalStorageModule',
+		'chart.js'
 	])
 
 	.config(['localStorageServiceProvider', function(localStorageServiceProvider){
@@ -37,6 +38,11 @@ webind.config(function($routeProvider, $locationProvider) {
 	        .when('/cons', {
                 templateUrl : 'pages/cons.html',
                 controller : 'consController',
+            })
+
+            .when('/results', {
+                templateUrl : 'pages/results.html',
+                controller : 'resultsController'
             });
 });
 
@@ -167,6 +173,15 @@ webind.controller('consController', function($scope, $http, localStorageService)
 			  0, 0, 0, 0, 0, false, false, false, false, 0, null);
 			a.dispatchEvent(e);
 	};
+});
+
+
+webind.controller('resultsController', function($scope) {
+
+	$scope.timeScaleCPU = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+	$scope.seriesCPU = ['CPU'];
+    $scope.dataCPU = [[3, 4, 5, 2, 8, 8, 7, 6, 4, 5]];
+
 });
 
 

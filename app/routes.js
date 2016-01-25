@@ -40,6 +40,37 @@ module.exports = function(app) {
 
 		console.log(xmlString);
 
+		var options = {
+                        host : 'localhost', // here only the domain name  @@@@@ TO DO @@@@@
+                        // (no http/https !)
+                        port : 4200,
+                        path : '/postXml', // the rest of the url with parameters if needed
+                        headers: {
+                            "Content-Type": "application/xml",
+                            "Content-Length": Buffer.byteLength(xmlString)
+                        },
+                        method : 'POST' // do POST
+                    }
+
+        http.request(options, function(res2) {
+            console.log('STATUS: ' + res2.statusCode);
+            console.log('HEADERS: ' + JSON.stringify(res2.headers));
+            res2.setEncoding('utf8');
+            str = "";
+            res2.on('data', function (chunk) {
+                str += chunk;
+        	});
+
+        	res2.on('end', function () {
+        		if (err)
+                    throw err;
+                console.log(str);
+            });
+        }).on('error', function(e) {console.log("Got error: " + e.message); res.status(400).send();});
+
+        post_req.write(dataStr);
+        post_req.end(); 
+
 		res.status(200).send();
 	});
 

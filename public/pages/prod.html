@@ -1,3 +1,14 @@
+    <div id="p2" class="mdl-progress mdl-js-progress" style="width: 100%;height: 10px"></div>
+
+    <script>
+      document.querySelector('#p2').addEventListener('mdl-componentupgraded', function() {
+        this.MaterialProgress.setProgress(50);
+      });
+    </script>
+  <script>
+    componentHandler.upgradeDom();
+  </script>
+
   <script language="javascript">
     function changeCons(value){
        document.getElementById("consValue").innerHTML = value;
@@ -11,7 +22,7 @@
   </script>
 
   <div class="mdl-grid" style="margin-top:20px">
-    <div class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--8-col">
+    <div class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--10-col">
       <div class="mdl-card__title">
         <h2 class="mdl-card__title-text">Providers definition</h2>
       </div>

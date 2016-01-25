@@ -73,7 +73,7 @@ webind.controller('instancesController', function($scope, localStorageService) {
 		$scope.cons.push({'id':1, 'name':'Consumer 1', 'startingTime':0, 'size':10,'period':1000,'duration':10000,'provider':'1'});
 
 	if($scope.prod.length < 1)
-		$scope.prod.push({'id':1, 'name':'Producer 1', 'size':10, 'delay':1000});
+		$scope.prod.push({'id':1, 'name':'Provider 1', 'size':10, 'delay':1000});
 
 
 	$scope.sliderProd = $scope.prod.length;
@@ -93,7 +93,7 @@ webind.controller('instancesController', function($scope, localStorageService) {
 
 	    if(nbProd > $scope.prod.length) {
 	    	for(var i = $scope.prod.length ; i < nbProd ; i++)
-	        	$scope.prod.push({'id':(i+1), 'name':'Producer' + (i+1), 'size':10, 'delay':1000});
+	        	$scope.prod.push({'id':(i+1), 'name':'Provider ' + (i+1), 'size':10, 'delay':1000});
 	    } else {
 	    	$scope.prod.splice(nbProd);
 	    }
@@ -179,8 +179,8 @@ webind.controller('consController', function($scope, $http, localStorageService)
 webind.controller('resultsController', function($scope) {
 
 	$scope.timeScaleCPU = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
-	$scope.seriesCPU = ['CPU'];
-    $scope.dataCPU = [[3, 4, 5, 2, 8, 8, 7, 6, 4, 5]];
+	$scope.seriesCPU = ['Consumer 1', 'Consumer 2'];
+    $scope.dataCPU = [[3, 4, 5, 2, 8, 8, 7, 6, 4, 5],[5, 4, 6, 7, 8, 8, 2, 5, 4, 3]];
 
 });
 

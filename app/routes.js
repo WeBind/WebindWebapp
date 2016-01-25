@@ -1,4 +1,5 @@
 var builder = require('xmlbuilder');
+var http = require('http');
 
 module.exports = function(app) {
 
@@ -44,7 +45,7 @@ module.exports = function(app) {
                         host : 'localhost', // here only the domain name  @@@@@ TO DO @@@@@
                         // (no http/https !)
                         port : 8080,
-                        path : '/postXml', // the rest of the url with parameters if needed
+                        path : '/WebApplicationPlasson/plasson/', // the rest of the url with parameters if needed
                         headers: {
                             "Content-Type": "application/xml",
                             "Content-Length": Buffer.byteLength(xmlString)
@@ -52,7 +53,7 @@ module.exports = function(app) {
                         method : 'POST' // do POST
                     }
 
-        http.request(options, function(res2) {
+        var post_req = http.request(options, function(res2) {
             console.log('STATUS: ' + res2.statusCode);
             console.log('HEADERS: ' + JSON.stringify(res2.headers));
             res2.setEncoding('utf8');
@@ -68,10 +69,38 @@ module.exports = function(app) {
             });
         }).on('error', function(e) {console.log("Got error: " + e.message); res.status(400).send();});
 
-        post_req.write(dataStr);
+        post_req.write(xmlString);
         post_req.end(); 
 
 		res.status(200).send();
 	});
 
+	app.get('/api/results', function(req, res) {
+
+		var options = {
+                        host : 'localhost', // here only the domain name  @@@@@ TO DO @@@@@
+                        // (no http/https !)
+                        port : 8080,
+                        path : '/WebApplicationPlasson/plasson/', // the rest of the url with parameters if needed
+                        method : 'GET' // do POST
+                    }
+
+        var post_req = http.request(options, function(res2) {
+            console.log('STATUS: ' + res2.statusCode);
+            console.log('HEADERS: ' + JSON.stringify(res2.headers));
+            res2.setEncoding('utf8');
+            str = "";
+            res2.on('data', function (chunk) {
+                str += chunk;
+        	});
+
+        	res2.on('end', function () {
+        		if (err)
+                    throw err;
+                console.log(str);
+            });
+        }).on('error', function(e) {console.log("Got error: " + e.message); res.status(400).send();});
+
+        post_req.end(); 
+	});
 }

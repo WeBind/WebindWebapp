@@ -43,7 +43,7 @@ module.exports = function(app) {
 		var options = {
                         host : 'localhost', // here only the domain name  @@@@@ TO DO @@@@@
                         // (no http/https !)
-                        port : 4200,
+                        port : 8080,
                         path : '/postXml', // the rest of the url with parameters if needed
                         headers: {
                             "Content-Type": "application/xml",

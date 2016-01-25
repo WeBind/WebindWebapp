@@ -38,9 +38,6 @@ webind.config(function($routeProvider, $locationProvider) {
                 templateUrl : 'pages/cons.html',
                 controller : 'consController',
             });
-
-	// use the HTML5 History API
-    $locationProvider.html5Mode(true);
 });
 
 webind.controller('mainController', function($scope) {
@@ -57,8 +54,6 @@ webind.controller('instancesController', function($scope, localStorageService) {
 	$scope.cons = consInStore || [];
 	$scope.prod = prodInStore || [];
 
-	$scope.sliderProd = $scope.prod.length;
-	$scope.sliderCons = $scope.cons.length;
 
 	$scope.$watch('cons', function () {
   		localStorageService.set('cons', $scope.cons);
@@ -68,13 +63,15 @@ webind.controller('instancesController', function($scope, localStorageService) {
 		localStorageService.set('prod', $scope.prod);
 	}, true);
 
-	if($scope.cons == [])
-		$scope.cons.push({'id':'1', 'name':'Consumer 1', 'startingTime':'0', 'size':'10','period':'1000','duration':'10000','provider':''});
+	if($scope.cons.length < 1)
+		$scope.cons.push({'id':1, 'name':'Consumer 1', 'startingTime':0, 'size':10,'period':1000,'duration':10000,'provider':'1'});
 
-	if($scope.prod == [])
-		$scope.prod.push({'id':'1', 'name':'Producer 1', 'size':10, 'delay':1000,'techno':'soap-java'});
+	if($scope.prod.length < 1)
+		$scope.prod.push({'id':1, 'name':'Producer 1', 'size':10, 'delay':1000});
 
 
+	$scope.sliderProd = $scope.prod.length;
+	$scope.sliderCons = $scope.cons.length;
 
     $scope.onInstancesNext = function(nbCons, nbProd){
 
@@ -83,14 +80,14 @@ webind.controller('instancesController', function($scope, localStorageService) {
 
     	if(nbCons > $scope.cons.length) {
 	    	for(var i = $scope.cons.length ; i < nbCons ; i++)
-	        	$scope.cons.push({'id':(i+1), 'name':'Consumer ' + (i+1), 'startingTime':'0', 'size':'10','period':'1000','duration':'10000','provider':''});
+	        	$scope.cons.push({'id':(i+1), 'name':'Consumer ' + (i+1), 'startingTime':0, 'size':10,'period':1000,'duration':10000,'provider':'1'});
 	    } else {
 	    	$scope.cons.splice(nbCons);
 	    }
 
 	    if(nbProd > $scope.prod.length) {
 	    	for(var i = $scope.prod.length ; i < nbProd ; i++)
-	        	$scope.prod.push({'id':(i+1), 'name':'Producer' + (i+1), 'size':10, 'delay':1000,'techno':'soap-java'});
+	        	$scope.prod.push({'id':(i+1), 'name':'Producer' + (i+1), 'size':10, 'delay':1000});
 	    } else {
 	    	$scope.prod.splice(nbProd);
 	    }

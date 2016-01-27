@@ -1,0 +1,25 @@
+  <script>
+    componentHandler.upgradeDom();
+  </script>
+
+  <div class="mdl-grid" style="margin-top:20px">
+    <div class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--10-col">
+      <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">Scenario results</h2>
+      </div>
+      <div class="mdl-card__supporting-text">
+  			<canvas id="line" class="chart chart-line" chart-data="dataCPU"
+  				chart-labels="timeScaleCPU" chart-legend="false" chart-series="seriesCPU">
+			</canvas>
+			<div class="mdl-layout-spacer"></div>
+			<canvas id="line" class="chart chart-line" chart-data="dataCPU"
+  				chart-labels="timeScaleCPU" chart-legend="false" chart-series="seriesCPU">
+			</canvas>
+      </div>
+      <div class="mdl-card__actions mdl-card--border">
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#">
+          Main
+        </a>
+      </div>
+    </div>
+  </div>

@@ -168,7 +168,7 @@ webind.controller('lastController', function($scope, $http, $interval, localStor
 
 	var req1 = {
  			method: 'POST',
- 			url: '/api/scenario',
+ 			url: '/api/scenario/fake',
  			headers: {
    				'Content-Type': 'Application/json'
  			},
@@ -203,13 +203,14 @@ webind.controller('lastController', function($scope, $http, $interval, localStor
     function askForResults() {
     	var req2 = {
  			method: 'GET',
- 			url: '/api/results'
+ 			url: '/api/results/fake'
  		}
 
     	$http(req2)
             .success(function(data){
-            	console.log(data);
+            	console.log("ICIIIIIII  " + JSON.stringify(data));
             	localStorageService.set('data', data);
+
             })
             .error(function(data){
                 console.log('Error: '+ data);
@@ -217,18 +218,54 @@ webind.controller('lastController', function($scope, $http, $interval, localStor
     }
 });
 
-webind.controller('resultsController', function($scope) {
+webind.controller('resultsController', function($scope, localStorageService) {
 
 	var dataInStore = localStorageService.get('data');
 
-	$scope.data = dataInStore || [];
+	$scope.data = dataInStore;
 
-	if($scope.data.length > 0) {
-		$scope.timeScale = [];
-		for(var i = 0 ; i < $scope.data.intervals.length ; i++)
-			$scope.timeScale.push(i+1)
-		$scope.series = ['Consumer 1', 'Consumer 2'];
-	    $scope.data = [[3, 4, 5, 2, 8, 8, 7, 6, 4, 5],[5, 4, 6, 7, 8, 8, 2, 5, 4, 3]];
+	$scope.timeScale = [];
+	$scope.series = [];
+	$scope.responseTime = [];
+	$scope.lossRate = [];
+	console.log(JSON.stringify($scope.data));
+	if($scope.data != null) {
+		console.log($scope.data.Intervals.Interval.length);
+		for(var i = 0 ; i < $scope.data.Intervals.Interval.length ; i++) {
+			$scope.timeScale.push(i+1);
+			console.log($scope.timeScale);
+			var interval = $scope.data.Intervals.Interval[i];
+			if(interval.hasOwnProperty("Consumer")) {
+				if(Object.prototype.toString.call(interval.Consumer) === '[object Array]') {
+					for(var j = 0 ; j < $scope.data.Intervals.Interval[i].Consumer.length ; j++) {
+						
+						console.log($scope.data.Intervals.Interval[i].Consumer[j].Name);
+						var pos = $scope.series.indexOf($scope.data.Intervals.Interval[i].Consumer[j].Name);
+						if(pos < 0) {
+							$scope.series.push($scope.data.Intervals.Interval[i].Consumer[j].Name);
+							$scope.responseTime.push(Array($scope.data.Intervals.Interval.length).fill(null));
+							$scope.lossRate.push(Array($scope.data.Intervals.Interval.length).fill(null));
+							pos = $scope.series.length - 1;
+						}
+						$scope.responseTime[pos][i] = parseInt($scope.data.Intervals.Interval[i].Consumer[j].ResponseTime) | 0;
+						$scope.lossRate[pos][i] = (parseInt($scope.data.Intervals.Interval[i].Consumer[j].LostRequests) / 
+												   parseInt($scope.data.Intervals.Interval[i].Consumer[j].TotalMessages) * 100) | 0;
+					}
+				} else {
+					var pos = $scope.series.indexOf($scope.data.Intervals.Interval[i].Consumer.Name);
+					if(pos < 0) {
+						$scope.series.push($scope.data.Intervals.Interval[i].Consumer.Name);
+						$scope.responseTime.push(Array($scope.data.Intervals.Interval.length).fill(null));
+						$scope.lossRate.push(Array($scope.data.Intervals.Interval.length).fill(null));
+						pos = $scope.series.length - 1;
+					}
+					$scope.responseTime[pos][i] = parseInt($scope.data.Intervals.Interval[i].Consumer.ResponseTime) | 0;
+					$scope.lossRate[pos][i] = (parseInt($scope.data.Intervals.Interval[i].Consumer.LostRequests) / 
+											   parseInt($scope.data.Intervals.Interval[i].Consumer.TotalMessages) * 100) | 0;
+				}
+			}
+		}
+
 	}
 
 });

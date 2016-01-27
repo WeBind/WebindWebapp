@@ -138,7 +138,7 @@ webind.controller('consController', function($scope, $http, $interval, localStor
 	$scope.onLaunchClick = function(){
 		var req1 = {
  			method: 'POST',
- 			url: '/api/scenario/fake',
+ 			url: '/api/scenario',
  			headers: {
    				'Content-Type': 'Application/json'
  			},
@@ -197,6 +197,12 @@ webind.controller('lastController', function($scope, $http, $interval, localStor
     }
 
     function askForResults() {
+
+    	var req2 = {
+ 			method: 'GET',
+ 			url: '/api/results'
+ 		}
+
     	$http(req2)
             .success(function(data){
             	console.log(data);

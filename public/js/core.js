@@ -136,22 +136,7 @@ webind.controller('consController', function($scope, $http, $interval, localStor
 	}, true);
 		
 	$scope.onLaunchClick = function(){
-		var req1 = {
- 			method: 'POST',
- 			url: '/api/scenario',
- 			headers: {
-   				'Content-Type': 'Application/json'
- 			},
- 			data: { 'providers': $scope.prod, 'consumers': $scope.cons}
-		}
 
-    	$http(req1)
-            .success(function(data){
-            	localStorageService.set('endTime', (data.endTime / 1000) | 0);
-            })
-            .error(function(data){
-                console.log('Error: ' + data);
-            });
     }
 
     $scope.onSaveClick = function() {
@@ -174,16 +159,28 @@ webind.controller('consController', function($scope, $http, $interval, localStor
 });
 
 webind.controller('lastController', function($scope, $http, $interval, localStorageService) {
-	var endTimeInStore = localStorageService.get('endTime');
+	var req1 = {
+ 			method: 'POST',
+ 			url: '/api/scenario',
+ 			headers: {
+   				'Content-Type': 'Application/json'
+ 			},
+ 			data: { 'providers': $scope.prod, 'consumers': $scope.cons}
+		}
 
-	$scope.endTime = endTimeInStore || 15;
-
-	startTimer(askForResults);
+    	$http(req1)
+            .success(function(data){
+            	console.log(data);
+            	$scope.endTime = (data.endTime / 1000) | 0;
+				startTimer(askForResults);
+            })
+            .error(function(data){
+                console.log('Error: ' + data);
+            });
 
     function startTimer(callback) {
     	var timer = $interval(function(){
     		if($scope.endTime > 0) {
-    			console.log($scope.endTime);
     			$scope.endTime--;
     			/* document.querySelector('#p3').addEventListener('mdl-componentupgraded', function() {
     				this.MaterialProgress.setProgress(33);
@@ -197,7 +194,6 @@ webind.controller('lastController', function($scope, $http, $interval, localStor
     }
 
     function askForResults() {
-
     	var req2 = {
  			method: 'GET',
  			url: '/api/results'

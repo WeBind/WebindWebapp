@@ -159,6 +159,13 @@ webind.controller('consController', function($scope, $http, $interval, localStor
 });
 
 webind.controller('lastController', function($scope, $http, $interval, localStorageService) {
+
+	var consInStore = localStorageService.get('cons');
+	var prodInStore = localStorageService.get('prod');
+
+	$scope.cons = consInStore || [];
+	$scope.prod = prodInStore || [];
+
 	var req1 = {
  			method: 'POST',
  			url: '/api/scenario',
@@ -220,8 +227,8 @@ webind.controller('resultsController', function($scope) {
 		$scope.timeScale = [];
 		for(var i = 0 ; i < $scope.data.intervals.length ; i++)
 			$scope.timeScale.push(i+1)
-		$scope.seriesCPU = ['Consumer 1', 'Consumer 2'];
-	    $scope.dataCPU = [[3, 4, 5, 2, 8, 8, 7, 6, 4, 5],[5, 4, 6, 7, 8, 8, 2, 5, 4, 3]];
+		$scope.series = ['Consumer 1', 'Consumer 2'];
+	    $scope.data = [[3, 4, 5, 2, 8, 8, 7, 6, 4, 5],[5, 4, 6, 7, 8, 8, 2, 5, 4, 3]];
 	}
 
 });

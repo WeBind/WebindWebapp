@@ -1,5 +1,5 @@
 var builder = require('xmlbuilder');
-var parser = require('xml2json');
+var parseString = require('xml2js').parseString;
 var http = require('http');
 
 module.exports = function(app) {
@@ -63,8 +63,10 @@ module.exports = function(app) {
         	});
 
         	res2.on('end', function () {
-                res.status(200).send(parser.toJson(str));
-                console.log(parser.toJson(str));          
+                parseString(str, function (err, result) {
+                    res.status(200).send(JSON.stringify(result));
+                    console.log(JSON.stringify(result)); 
+                });         
             });
         }).on('error', function(e) {console.log("Got error: " + e.message); res.status(400).send();});
 
@@ -93,8 +95,10 @@ module.exports = function(app) {
         	});
 
         	res2.on('end', function () {
-                res.status(200).send(parser.toJson(str));
-                console.log(parser.toJson(str));
+                parseString(str, function (err, result) {
+                    res.status(200).send(JSON.stringify(result));
+                    console.log(JSON.stringify(result)); 
+                });  
             });
         }).on('error', function(e) {console.log("Got error: " + e.message); res.status(400).send();});
 
@@ -103,9 +107,11 @@ module.exports = function(app) {
 
     app.post('/api/scenario/fake', function(req, res) {
         console.log(req.body);
-        var xml = "<?xml version='1.0' encoding='UTF-8' standalone='no'?><endTime>10101</endTime>"
-        res.status(200).send(parser.toJson(xml));
-        console.log(parser.toJson(xml));
+        var xml = "<?xml version='1.0' encoding='UTF-8' standalone='no'?><endTime>2300</endTime>"
+        parseString(xml, function (err, result) {
+            res.status(200).send(JSON.stringify(result));
+            console.log(JSON.stringify(result)); 
+        });  
     });
 
     app.get('/api/results/fake', function(req, res) {
@@ -114,12 +120,14 @@ module.exports = function(app) {
     <Interval Number="0">\
         <Start>0</Start>\
         <End>1010</End>\
-        <Consumer Name="Consumer : consumer148">\
+        <Consumer>\
+            <Name>consumer148</Name>\
             <LostRequests>0.0</LostRequests>\
             <TotalMessages>8.0</TotalMessages>\
             <ResponseTime>83.75</ResponseTime>\
         </Consumer>\
-        <Consumer Name="Consumer : consumer79">\
+        <Consumer>\
+            <Name>consumer79</Name>\
             <LostRequests>0.0</LostRequests>\
             <TotalMessages>1.0</TotalMessages>\
             <ResponseTime>473.0</ResponseTime>\
@@ -128,12 +136,14 @@ module.exports = function(app) {
     <Interval Number="1">\
         <Start>1010</Start>\
         <End>2020</End>\
-        <Consumer Name="Consumer : consumer18">\
+        <Consumer>\
+            <Name>consumer18</Name>\
             <LostRequests>0.0</LostRequests>\
             <TotalMessages>1.0</TotalMessages>\
             <ResponseTime>120.0</ResponseTime>\
         </Consumer>\
-        <Consumer Name="Consumer : consumer148">\
+        <Consumer>\
+            <Name>consumer148</Name>\
             <LostRequests>0.0</LostRequests>\
             <TotalMessages>37.0</TotalMessages>\
             <ResponseTime>17.756752</ResponseTime>\
@@ -142,7 +152,8 @@ module.exports = function(app) {
     <Interval Number="2">\
         <Start>2020</Start>\
         <End>3030</End>\
-        <Consumer Name="Consumer : consumer148">\
+        <Consumer>\
+            <Name>consumer148</Name>\
             <LostRequests>0.0</LostRequests>\
             <TotalMessages>45.0</TotalMessages>\
             <ResponseTime>16.66667</ResponseTime>\
@@ -151,7 +162,8 @@ module.exports = function(app) {
     <Interval Number="3">\
         <Start>3030</Start>\
         <End>4040</End>\
-        <Consumer Name="Consumer : consumer148">\
+        <Consumer>\
+            <Name>consumer148</Name>\
             <LostRequests>0.0</LostRequests>\
             <TotalMessages>46.0</TotalMessages>\
             <ResponseTime>15.804346</ResponseTime>\
@@ -160,7 +172,8 @@ module.exports = function(app) {
     <Interval Number="4">\
         <Start>4040</Start>\
         <End>5050</End>\
-        <Consumer Name="Consumer : consumer148">\
+        <Consumer>\
+            <Name>consumer148</Name>\
             <LostRequests>0.0</LostRequests>\
             <TotalMessages>48.0</TotalMessages>\
             <ResponseTime>29.708334</ResponseTime>\
@@ -169,7 +182,8 @@ module.exports = function(app) {
     <Interval Number="5">\
         <Start>5050</Start>\
         <End>6060</End>\
-        <Consumer Name="Consumer : consumer148">\
+        <Consumer>\
+            <Name>consumer148</Name>\
             <LostRequests>0.0</LostRequests>\
             <TotalMessages>12.0</TotalMessages>\
             <ResponseTime>16.25</ResponseTime>\
@@ -178,7 +192,8 @@ module.exports = function(app) {
     <Interval Number="6">\
         <Start>6060</Start>\
         <End>7070</End>\
-        <Consumer Name="Consumer : consumer148">\
+        <Consumer>\
+            <Name>consumer148</Name>\
             <LostRequests>0.0</LostRequests>\
             <TotalMessages>37.0</TotalMessages>\
             <ResponseTime>20.783783</ResponseTime>\
@@ -187,7 +202,8 @@ module.exports = function(app) {
     <Interval Number="7">\
         <Start>7070</Start>\
         <End>8080</End>\
-        <Consumer Name="Consumer : consumer148">\
+        <Consumer>\
+            <Name>consumer148</Name>\
             <LostRequests>0.0</LostRequests>\
             <TotalMessages>49.0</TotalMessages>\
             <ResponseTime>15.163265</ResponseTime>\
@@ -196,7 +212,8 @@ module.exports = function(app) {
     <Interval Number="8">\
         <Start>8080</Start>\
         <End>9090</End>\
-        <Consumer Name="Consumer : consumer148">\
+        <Consumer>\
+            <Name>consumer148</Name>\
             <LostRequests>0.0</LostRequests>\
             <TotalMessages>47.0</TotalMessages>\
             <ResponseTime>16.29787</ResponseTime>\
@@ -205,7 +222,8 @@ module.exports = function(app) {
     <Interval Number="9">\
         <Start>9090</Start>\
         <End>10101</End>\
-        <Consumer Name="Consumer : consumer148">\
+        <Consumer>\
+            <Name>consumer148</Name>\
             <LostRequests>0.0</LostRequests>\
             <TotalMessages>47.0</TotalMessages>\
             <ResponseTime>14.085107</ResponseTime>\
@@ -213,7 +231,10 @@ module.exports = function(app) {
     </Interval>\
 </Intervals>';
 
-        res.status(200).send(parser.toJson(xml));
+        parseString(xml, function (err, result) {
+            res.status(200).send(JSON.stringify(result));
+            console.log(JSON.stringify(result)); 
+        });  
         
     });
 }

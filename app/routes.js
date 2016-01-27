@@ -1,4 +1,5 @@
 var builder = require('xmlbuilder');
+var parseString = require('xml2js').parseString;
 var http = require('http');
 
 module.exports = function(app) {
@@ -40,7 +41,6 @@ module.exports = function(app) {
 		var xmlString = root.end({ pretty: true, indent: '  ', newline: '\n' });
 
 		console.log(xmlString);
-
 		var options = {
                         host : 'localhost', // here only the domain name  @@@@@ TO DO @@@@@
                         // (no http/https !)
@@ -57,22 +57,24 @@ module.exports = function(app) {
             console.log('STATUS: ' + res2.statusCode);
             console.log('HEADERS: ' + JSON.stringify(res2.headers));
             res2.setEncoding('utf8');
-            str = "";
+            var str = "";
             res2.on('data', function (chunk) {
                 str += chunk;
         	});
 
         	res2.on('end', function () {
-        		if (err)
-                    throw err;
-                console.log(str);
+                parseString(str, function (err, result) {
+                    if(err)
+                        throw err;
+                    console.log(JSON.stringify(result));
+                    res.status(200).send(JSON.stringify(result));
+                });           
             });
         }).on('error', function(e) {console.log("Got error: " + e.message); res.status(400).send();});
 
         post_req.write(xmlString);
         post_req.end(); 
 
-		res.status(200).send();
 	});
 
 	app.get('/api/results', function(req, res) {
@@ -95,12 +97,98 @@ module.exports = function(app) {
         	});
 
         	res2.on('end', function () {
-        		if (err)
-                    throw err;
-                console.log(str);
+                parseString(str, function (err, result) {
+                    if(err)
+                        throw err;
+                    console.log(JSON.stringify(result));
+                    res.status(200).send(JSON.stringify(result));
+                });
             });
         }).on('error', function(e) {console.log("Got error: " + e.message); res.status(400).send();});
 
         post_req.end(); 
 	});
+
+    app.post('/api/scenario/fake', function(req, res) {
+        console.log(req.body);
+        var xml = "<?xml version='1.0' encoding='UTF-8' standalone='no'?><endTime>10101</endTime>"
+        parseString(xml, function (err, result) {
+            if(err) {
+                throw err;
+                res.status(400).send();
+            }
+            console.log(JSON.stringify(result));
+            res.status(200).send(JSON.stringify(result));
+        });
+    });
+
+    app.get('/api/results/fake', function(req, res) {
+        var xml = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>\
+        <Intervals>\
+            <Interval Number="0">\
+                <Start>0</Start>\
+                <End>130</End>\
+            </Interval>\
+            <Interval Number="1">\
+                <Start>130</Start>\
+                <End>260</End>\
+                <Consumer Name="Consumer : consumer79">\
+                    <LostRequests>0.0</LostRequests>\
+                    <TotalMessages>1.0</TotalMessages>\
+                    <ResponseTime>1995.0</ResponseTime>\
+                </Consumer>\
+            </Interval>\
+            <Interval Number="2">\
+                <Start>260</Start>\
+                <End>390</End>\
+            </Interval>\
+            <Interval Number="3">\
+                <Start>390</Start>\
+                <End>520</End>\
+            </Interval>\
+            <Interval Number="4">\
+                <Start>520</Start>\
+                <End>650</End>\
+            </Interval>\
+            <Interval Number="5">\
+                <Start>650</Start>\
+                <End>780</End>\
+            </Interval>\
+            <Interval Number="6">\
+                <Start>780</Start>\
+                <End>910</End>\
+            </Interval>\
+            <Interval Number="7">\
+                <Start>910</Start>\
+                <End>1040</End>\
+                <Consumer Name="Consumer : consumer18">\
+                    <LostRequests>0.0</LostRequests>\
+                    <TotalMessages>1.0</TotalMessages>\
+                    <ResponseTime>1136.0</ResponseTime>\
+                </Consumer>\
+            </Interval>\
+            <Interval Number="8">\
+                <Start>1040</Start>\
+                <End>1170</End>\
+                <Consumer Name="Consumer : consumer148">\
+                    <LostRequests>0.0</LostRequests>\
+                    <TotalMessages>1.0</TotalMessages>\
+                    <ResponseTime>1135.0</ResponseTime>\
+                </Consumer>\
+            </Interval>\
+            <Interval Number="9">\
+                <Start>1170</Start>\
+                <End>1301</End>\
+            </Interval>\
+        </Intervals>';
+
+        parseString(xml, function (err, result) {
+            if(err) {
+                throw err;
+                res.status(400).send();
+            }
+            console.log(JSON.stringify(result));
+            res.status(200).send(JSON.stringify(result));
+        });
+    });
 }

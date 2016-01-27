@@ -33,6 +33,7 @@ webind.config(function($routeProvider, $locationProvider) {
             
             .when('/last', {
                 templateUrl : 'pages/last.html',
+                controller : 'lastController',
             })
 	        
 	        .when('/cons', {
@@ -119,7 +120,7 @@ webind.controller('prodController', function($scope, localStorageService) {
 	}, true);
 });
 
-webind.controller('consController', function($scope, $http, localStorageService) {
+webind.controller('consController', function($scope, $http, $interval, localStorageService) {
 	var consInStore = localStorageService.get('cons');
 	var prodInStore = localStorageService.get('prod');
 
@@ -133,26 +134,23 @@ webind.controller('consController', function($scope, $http, localStorageService)
 	$scope.$watch('prod', function () {
 		localStorageService.set('prod', $scope.prod);
 	}, true);
-
+		
 	$scope.onLaunchClick = function(){
-
-		var req = {
+		var req1 = {
  			method: 'POST',
- 			url: '/api/scenario',
+ 			url: '/api/scenario/fake',
  			headers: {
    				'Content-Type': 'Application/json'
  			},
  			data: { 'providers': $scope.prod, 'consumers': $scope.cons}
 		}
 
-		console.log(req);
-
-    	$http(req)
+    	$http(req1)
             .success(function(data){
-				console.log(data);
+            	localStorageService.set('endTime', (data.endTime / 1000) | 0);
             })
             .error(function(data){
-                console.log('Error: '+data);
+                console.log('Error: ' + data);
             });
     }
 
@@ -175,12 +173,54 @@ webind.controller('consController', function($scope, $http, localStorageService)
 	};
 });
 
+webind.controller('lastController', function($scope, $http, $interval, localStorageService) {
+	var endTimeInStore = localStorageService.get('endTime');
+
+	$scope.endTime = endTimeInStore || 15;
+
+	startTimer(askForResults);
+
+    function startTimer(callback) {
+    	var timer = $interval(function(){
+    		if($scope.endTime > 0) {
+    			console.log($scope.endTime);
+    			$scope.endTime--;
+    			/* document.querySelector('#p3').addEventListener('mdl-componentupgraded', function() {
+    				this.MaterialProgress.setProgress(33);
+    				this.MaterialProgress.setBuffer(87);
+  				}); */
+    		} else {
+    			callback();
+    			$interval.cancel(timer);
+    		}
+  		},1000);
+    }
+
+    function askForResults() {
+    	$http(req2)
+            .success(function(data){
+            	console.log(data);
+            	localStorageService.set('data', data);
+            })
+            .error(function(data){
+                console.log('Error: '+ data);
+            });
+    }
+});
 
 webind.controller('resultsController', function($scope) {
 
-	$scope.timeScaleCPU = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
-	$scope.seriesCPU = ['Consumer 1', 'Consumer 2'];
-    $scope.dataCPU = [[3, 4, 5, 2, 8, 8, 7, 6, 4, 5],[5, 4, 6, 7, 8, 8, 2, 5, 4, 3]];
+	var dataInStore = localStorageService.get('data');
+
+	$scope.data = dataInStore || [];
+
+	if($scope.data.length > 0) {
+		$scope.timeScale = [];
+		for(var i = 0 ; i < $scope.data.intervals.length ; i++)
+			$scope.timeScale.push(i+1)
+		$scope.seriesCPU = ['Consumer 1', 'Consumer 2'];
+	    $scope.dataCPU = [[3, 4, 5, 2, 8, 8, 7, 6, 4, 5],[5, 4, 6, 7, 8, 8, 2, 5, 4, 3]];
+	}
 
 });
 

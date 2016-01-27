@@ -165,10 +165,11 @@ webind.controller('lastController', function($scope, $http, $interval, $window, 
 
 	$scope.cons = consInStore || [];
 	$scope.prod = prodInStore || [];
+	$scope.label = "Deploying scenario...";
 
 	var req1 = {
  			method: 'POST',
- 			url: '/api/scenario/fake',
+ 			url: '/api/scenario',
  			headers: {
    				'Content-Type': 'Application/json'
  			},
@@ -186,6 +187,7 @@ webind.controller('lastController', function($scope, $http, $interval, $window, 
             });
 
     function startTimer(callback) {
+    	$scope.label = "Running scenario : ";
     	var timer = $interval(function(){
     		if($scope.endTime > 0) {
     			$scope.endTime--;
@@ -199,7 +201,7 @@ webind.controller('lastController', function($scope, $http, $interval, $window, 
     function askForResults() {
     	var req2 = {
  			method: 'GET',
- 			url: '/api/results/fake'
+ 			url: '/api/results'
  		}
 
     	$http(req2)

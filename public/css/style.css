@@ -15,6 +15,10 @@
   background-color: #05344B;
 }*/
 
+.mdl-textfield {
+  overflow : hidden;
+}
+
 .demo-card-wide > .mdl-card__title {
   color: #fff;
   height: 176px;

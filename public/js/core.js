@@ -158,7 +158,7 @@ webind.controller('consController', function($scope, $http, $interval, localStor
 	};
 });
 
-webind.controller('lastController', function($scope, $http, $interval, localStorageService) {
+webind.controller('lastController', function($scope, $http, $interval, $window, localStorageService) {
 
 	var consInStore = localStorageService.get('cons');
 	var prodInStore = localStorageService.get('prod');
@@ -168,7 +168,7 @@ webind.controller('lastController', function($scope, $http, $interval, localStor
 
 	var req1 = {
  			method: 'POST',
- 			url: '/api/scenario',
+ 			url: '/api/scenario/fake',
  			headers: {
    				'Content-Type': 'Application/json'
  			},
@@ -178,7 +178,7 @@ webind.controller('lastController', function($scope, $http, $interval, localStor
     	$http(req1)
             .success(function(data){
             	console.log(data);
-            	$scope.endTime = (data.endTime / 1000) | 0;
+            	$scope.endTime = ((data.endTime / 1000) | 0) + 3;
 				startTimer(askForResults);
             })
             .error(function(data){
@@ -189,10 +189,6 @@ webind.controller('lastController', function($scope, $http, $interval, localStor
     	var timer = $interval(function(){
     		if($scope.endTime > 0) {
     			$scope.endTime--;
-    			/* document.querySelector('#p3').addEventListener('mdl-componentupgraded', function() {
-    				this.MaterialProgress.setProgress(33);
-    				this.MaterialProgress.setBuffer(87);
-  				}); */
     		} else {
     			callback();
     			$interval.cancel(timer);
@@ -203,12 +199,14 @@ webind.controller('lastController', function($scope, $http, $interval, localStor
     function askForResults() {
     	var req2 = {
  			method: 'GET',
- 			url: '/api/results'
+ 			url: '/api/results/fake'
  		}
 
     	$http(req2)
             .success(function(data){
             	localStorageService.set('data', data);
+            	console.log(JSON.stringify(data));
+            	$window.location.href = '#results';
             })
             .error(function(data){
                 console.log('Error: '+ data);
@@ -246,6 +244,24 @@ webind.controller('resultsController', function($scope, localStorageService) {
 		}
 
 	}
+
+	$scope.onDownloadClick = function() {
+
+    	var data = $scope.data;
+		
+		data = JSON.stringify(data, undefined, 2);
+
+		var blob = new Blob([data], {type: 'text/json'}),
+			e = document.createEvent('MouseEvents'),
+			a = document.createElement('a');
+
+			a.download = "results.json";
+			a.href = window.URL.createObjectURL(blob);
+			a.dataset.downloadurl = ['text/json', a.download, a.href].join(':');
+			e.initMouseEvent('click', true, false, window,
+			  0, 0, 0, 0, 0, false, false, false, false, 0, null);
+			a.dispatchEvent(e);
+	};
 
 });
 

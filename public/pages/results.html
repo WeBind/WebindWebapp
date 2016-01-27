@@ -9,17 +9,20 @@
       </div>
       <div class="mdl-card__supporting-text">
   			<canvas id="line" class="chart chart-line" chart-data="responseTime"
-  				chart-labels="timeScale" chart-legend="false" chart-series="series">
+  				chart-labels="timeScale" chart-legend="true" chart-series="series">
 			</canvas>
 			<div class="mdl-layout-spacer"></div>
 			<canvas id="line2" class="chart chart-line" chart-data="lossRate"
-  				chart-labels="timeScale" chart-legend="false" chart-series="series">
+  				chart-labels="timeScale" chart-legend="true" chart-series="series">
 			</canvas>
       </div>
       <div class="mdl-card__actions mdl-card--border">
         <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#">
-          Main
+          Home
         </a>
+        <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" ng-click="onDownloadClick()">
+          Download results
+        </button>
       </div>
     </div>
   </div>

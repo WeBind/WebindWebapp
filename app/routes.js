@@ -126,22 +126,10 @@ module.exports = function(app) {
             <TotalMessages>8.0</TotalMessages>\
             <ResponseTime>83.75</ResponseTime>\
         </Consumer>\
-        <Consumer>\
-            <Name>consumer79</Name>\
-            <LostRequests>0.0</LostRequests>\
-            <TotalMessages>1.0</TotalMessages>\
-            <ResponseTime>473.0</ResponseTime>\
-        </Consumer>\
     </Interval>\
     <Interval Number="1">\
         <Start>1010</Start>\
         <End>2020</End>\
-        <Consumer>\
-            <Name>consumer18</Name>\
-            <LostRequests>0.0</LostRequests>\
-            <TotalMessages>1.0</TotalMessages>\
-            <ResponseTime>120.0</ResponseTime>\
-        </Consumer>\
         <Consumer>\
             <Name>consumer148</Name>\
             <LostRequests>0.0</LostRequests>\
@@ -204,7 +192,7 @@ module.exports = function(app) {
         <End>8080</End>\
         <Consumer>\
             <Name>consumer148</Name>\
-            <LostRequests>0.0</LostRequests>\
+            <LostRequests>3.0</LostRequests>\
             <TotalMessages>49.0</TotalMessages>\
             <ResponseTime>15.163265</ResponseTime>\
         </Consumer>\

@@ -169,7 +169,7 @@ webind.controller('lastController', function($scope, $http, $interval, $window, 
 
 	var req1 = {
  			method: 'POST',
- 			url: '/api/scenario',
+ 			url: '/api/scenario/fake',
  			headers: {
    				'Content-Type': 'Application/json'
  			},
@@ -201,7 +201,7 @@ webind.controller('lastController', function($scope, $http, $interval, $window, 
     function askForResults() {
     	var req2 = {
  			method: 'GET',
- 			url: '/api/results'
+ 			url: '/api/results/fake'
  		}
 
     	$http(req2)

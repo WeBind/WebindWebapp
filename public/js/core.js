@@ -17,7 +17,7 @@ var webind = angular
 webind.config(function($routeProvider, $locationProvider) {
 	$routeProvider
 	        .when('/', {
-                templateUrl : 'pages/first.html',
+                templateUrl : 'pages/home.html',
                 controller : 'mainController',
             })
 
@@ -44,6 +44,11 @@ webind.config(function($routeProvider, $locationProvider) {
             .when('/results', {
                 templateUrl : 'pages/results.html',
                 controller : 'resultsController'
+            })
+
+            .when('/photo', {
+                templateUrl : 'pages/photo.html',
+                controller : 'mainController'
             });
 });
 
